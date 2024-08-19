@@ -1,0 +1,46 @@
+.secao-principal{
+    max-width: 1024px;
+    padding-top: 50px;
+    margin: 0 auto;
+}
+
+.botao-escolha{
+    width: 100%;
+    
+    display: flex;
+    gap: 10px;
+}
+
+button{
+    width: 150px;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 3px;
+}
+
+.img-icone{
+    width: 20px;
+}
+
+.box-input{
+    margin: 20px 0;
+    border: 2px solid lightgray;
+    border-radius: 20px;
+
+
+    display: flex;
+    align-items: center;
+}
+
+.box-input input{
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+}
