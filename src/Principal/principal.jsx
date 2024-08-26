@@ -19,12 +19,12 @@ export default function Principal() {
   
   const entradaCardapio = produtos.entrada;
 
-  const [categoria, setCategoria] = useState(entradaCardapio);
+  const [categoriaCardapio, setCategoriaCardapio] = useState(entradaCardapio);
 
-  const filtraPrato = () => {
+  const filtrarPrato = (categoria) => {
     let selecionaCategoria = produtos.filter((produto) => produto.categoria === categoria)
 
-    setCategoria(selecionaCategoria);
+    setCategoriaCardapio(selecionaCategoria);
 
     return selecionaCategoria;
   }
@@ -34,27 +34,27 @@ export default function Principal() {
         <Topo />
         <div className='secao-principal'>
           <div className='botao-escolha'>
-            <button onClick={() => filtraPrato()}>
+            <button onClick={() => filtrarPrato("entrada")}>
               <img className='img-icone' src={entrada} alt="Entrada" />
               <p>Entradas</p>
             </button>
-            <button onClick={() => filtraPrato()}>
+            <button onClick={() => filtrarPrato("massa")}>
               <img className='img-icone' src={massa} alt="Massa" />
               <p>Massas</p>
             </button>
-            <button onClick={() => filtraPrato()}>
+            <button onClick={() => filtrarPrato("carne")}>
               <img className='img-icone' src={carne} alt="Carne" />
               <p>Carnes</p>
             </button>
-            <button onClick={() => filtraPrato()}>
+            <button onClick={() => filtrarPrato("bebidas")}>
               <img className='img-icone' src={bebidas} alt="Bebidas" />
               <p>Bebidas</p>
             </button>
-            <button onClick={() => filtraPrato()}>
+            <button onClick={() => filtrarPrato("salada")}>
               <img className='img-icone' src={salada} alt="Salada" />
               <p>Saladas</p>
             </button>
-            <button onClick={() => filtraPrato()}>
+            <button onClick={() => filtrarPrato("sobremesa")}>
               <img className='img-icone' src={sobremesa} alt="Sobremesa" />
               <p>Saladas</p>
             </button>
@@ -72,7 +72,7 @@ export default function Principal() {
 
           <div className='secao-cards'>
             {
-              produtos.map((produto, index) =>{
+              categoriaCardapio.map((produto, index) =>{
                 <Card 
                   key={index}
                   imagem={produto.imagem}

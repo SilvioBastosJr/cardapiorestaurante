@@ -1,14 +1,15 @@
 import React from "react";
 
-const Card = () => {
+const Card = ({ nome, categoria, descricao, preco, imagem}) => {
     return (
         <section>
             <h1>Cardápio</h1>
             <div>
-                <img src="" alt="" />
-                <h2></h2>
-                <span></span>
-                <p></p>
+                <img src={imagem} alt="Pratos" />
+                <h2>{nome}</h2>
+                <span>{categoria}</span>
+                <p>{descricao}</p>
+                <p>{preco}</p>
             </div>
         </section>
     )
