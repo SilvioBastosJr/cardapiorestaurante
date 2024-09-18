@@ -1,0 +1,37 @@
+.secao-card{
+    font-family: 'Poppins', sans-serif;
+    width: 250px;
+    
+    display: flex;
+    flex-grow: 1;
+}
+
+.box-card{
+    width: 100%;
+    border: 2px solid #daa520;;
+}
+
+.container-img img{
+    width: 100%;
+    height: 250px;
+}
+
+.container-texto{
+    height: 100%;
+    padding: 10px;
+}
+
+span{
+    padding: 20px 0;
+    color: #daa520;
+}
+
+.descricao{
+    text-align: justify;
+    font-weight: 500;
+}
+
+.preco{
+    text-align: right;
+    font-weight: 700;
+}

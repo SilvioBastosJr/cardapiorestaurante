@@ -4,7 +4,7 @@ import './topo.css';
 
 const Topo = () => {
     return(
-        <section className="container-topo">
+        <section className="container-topo largura-maxima">
             <div className="secao-texto">
               <h1 className="titulo">RESTAURANT</h1>
               <p className="paragrafo">De pratos clássicos a criações surpreendentes, nosso cardápio é um requinte de sabores refinados.</p>

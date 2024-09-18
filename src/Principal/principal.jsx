@@ -16,47 +16,64 @@ import { IoSearch } from "react-icons/io5";
 import { useState } from 'react';
 
 export default function Principal() {
-  
-  const entradaCardapio = produtos.entrada;
 
-  const [categoriaCardapio, setCategoriaCardapio] = useState(entradaCardapio);
+  const exibirEntrada = (entradas) => {
+    
+  return produtos.filter((produto) => produto.categoria === entradas);
+};
+
+  const [categoriaCardapio, setCategoriaCardapio] = useState(exibirEntrada("Entradas"));
+
+  const [textoBusca, setTextoBusca] = useState("");
 
   const filtrarPrato = (categoria) => {
-    let selecionaCategoria = produtos.filter((produto) => produto.categoria === categoria)
 
-    setCategoriaCardapio(selecionaCategoria);
+    setCategoriaCardapio(
+     produtos.filter((produto) => produto.categoria === categoria)
+    )
+    setTextoBusca("");
+  };
 
-    return selecionaCategoria;
-  }
+  const buscarJogo = (textoDigitado) => {
+    
+    setTextoBusca(textoDigitado);
+    
+    produtos.filter((produto) => {
+      return (
+        produto.nome.toLowerCase().includes(textoDigitado.toLowerCase()) ||
+        produto.descricao.toLowerCase().includes(textoDigitado.toLowerCase())
+      )
+    });    
+  };
 
   return (
       <section>
         <Topo />
-        <div className='secao-principal'>
+        <div className='secao-principal largura-maxima'>
           <div className='botao-escolha'>
-            <button onClick={() => filtrarPrato("entrada")}>
+            <button onClick={() => filtrarPrato("Entradas")}>
               <img className='img-icone' src={entrada} alt="Entrada" />
               <p>Entradas</p>
             </button>
-            <button onClick={() => filtrarPrato("massa")}>
-              <img className='img-icone' src={massa} alt="Massa" />
+            <button onClick={() => filtrarPrato("Massas")}>
+              <img className='img-icone' src={massa} alt="Massas" />
               <p>Massas</p>
             </button>
-            <button onClick={() => filtrarPrato("carne")}>
-              <img className='img-icone' src={carne} alt="Carne" />
+            <button onClick={() => filtrarPrato("Carnes")}>
+              <img className='img-icone' src={carne} alt="Carnes" />
               <p>Carnes</p>
             </button>
-            <button onClick={() => filtrarPrato("bebidas")}>
+            <button onClick={() => filtrarPrato("Bebidas")}>
               <img className='img-icone' src={bebidas} alt="Bebidas" />
               <p>Bebidas</p>
             </button>
-            <button onClick={() => filtrarPrato("salada")}>
-              <img className='img-icone' src={salada} alt="Salada" />
+            <button onClick={() => filtrarPrato("Saladas")}>
+              <img className='img-icone' src={salada} alt="Saladas" />
               <p>Saladas</p>
             </button>
-            <button onClick={() => filtrarPrato("sobremesa")}>
-              <img className='img-icone' src={sobremesa} alt="Sobremesa" />
-              <p>Saladas</p>
+            <button onClick={() => filtrarPrato("Sobremesas")}>
+              <img className='img-icone' src={sobremesa} alt="Sobremesas" />
+              <p>Sobremesas</p>
             </button>
           </div>
 
@@ -64,22 +81,31 @@ export default function Principal() {
 
             <IoSearch />
             <input
-
               type='text'
+              value={textoBusca}
+              onChange={(event) => buscarJogo(event.target.value)}
               placeholder='Pesquise aqui um dos pratos do nosso cardápio'
             />
           </div>
 
+          <div className='secao-titulo'>
+            <h1 className='titulo'>Cardápio</h1>
+          </div>
+
           <div className='secao-cards'>
             {
-              categoriaCardapio.map((produto, index) =>{
-                <Card 
+              categoriaCardapio.map((produto, index) => {
+                return <Card 
                   key={index}
                   imagem={produto.imagem}
                   nome={produto.nome}
                   categoria={produto.categoria}
                   descricao={produto.descricao}
-                  preco={produto.preco}
+                  preco={produto.preco.toLocaleString('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  })
+                  }
 
                 />
               })
