@@ -26,52 +26,61 @@ export default function Principal() {
 
   const [textoBusca, setTextoBusca] = useState("");
 
+  const [bgBTN, setBgBTN] = useState("bg-cinza");
+
   const filtrarPrato = (categoria) => {
 
-    setCategoriaCardapio(
-     produtos.filter((produto) => produto.categoria === categoria)
-    )
+    setCategoriaCardapio(produtos.filter((produto) => produto.categoria === categoria));
+
+    setBgBTN(categoria);
+
     setTextoBusca("");
   };
 
   const buscarJogo = (textoDigitado) => {
     
-    setTextoBusca(textoDigitado);
+    setTextoBusca(textoDigitado); 
     
-    produtos.filter((produto) => {
-      return (
-        produto.nome.toLowerCase().includes(textoDigitado.toLowerCase()) ||
-        produto.descricao.toLowerCase().includes(textoDigitado.toLowerCase())
-      )
-    });    
+    if(textoDigitado.length >= 3) {
+      setCategoriaCardapio(
+        produtos.filter((produto) => {
+          return (
+            produto.nome.toLowerCase().includes(textoDigitado.toLowerCase()) ||
+            produto.descricao.toLowerCase().includes(textoDigitado.toLowerCase())
+          )
+        }));
+    } else {
+      setCategoriaCardapio(entrada);
+    }
   };
+  
 
   return (
       <section>
         <Topo />
         <div className='secao-principal largura-maxima'>
           <div className='botao-escolha'>
-            <button onClick={() => filtrarPrato("Entradas")}>
+            <button className={bgBTN === "Entradas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Entradas")}>
               <img className='img-icone' src={entrada} alt="Entrada" />
               <p>Entradas</p>
             </button>
-            <button onClick={() => filtrarPrato("Massas")}>
+            <button className={bgBTN === "Massas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Massas")}>
               <img className='img-icone' src={massa} alt="Massas" />
               <p>Massas</p>
             </button>
-            <button onClick={() => filtrarPrato("Carnes")}>
+            <button className={bgBTN === "Carnes" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Carnes")}>
               <img className='img-icone' src={carne} alt="Carnes" />
               <p>Carnes</p>
             </button>
-            <button onClick={() => filtrarPrato("Bebidas")}>
+            <button className={bgBTN === "Bebidas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Bebidas")}>
               <img className='img-icone' src={bebidas} alt="Bebidas" />
               <p>Bebidas</p>
             </button>
-            <button onClick={() => filtrarPrato("Saladas")}>
+            <button className={bgBTN === "Saladas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Saladas")}>
               <img className='img-icone' src={salada} alt="Saladas" />
               <p>Saladas</p>
             </button>
-            <button onClick={() => filtrarPrato("Sobremesas")}>
+            <button className={bgBTN === "Sobremesas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Sobremesas")}>
               <img className='img-icone' src={sobremesa} alt="Sobremesas" />
               <p>Sobremesas</p>
             </button>
