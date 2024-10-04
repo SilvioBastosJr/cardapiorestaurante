@@ -41,21 +41,22 @@ export default function Principal() {
     
     setTextoBusca(textoDigitado); 
     
-    if(textoDigitado.length >= 3) {
-      setCategoriaCardapio(
+    textoDigitado.length >= 3 && setCategoriaCardapio(
         produtos.filter((produto) => {
           return (
             produto.nome.toLowerCase().includes(textoDigitado.toLowerCase()) ||
             produto.descricao.toLowerCase().includes(textoDigitado.toLowerCase())
           )
         }));
-    } else {
-      setCategoriaCardapio(entrada);
-    }
-  };
-  
 
-  return (
+        if(textoDigitado.length == 0) {
+          console.log("Campo Vazio");
+          setCategoriaCardapio(exibirEntrada("Entrada"));
+        }
+
+    } 
+  
+    return (
       <section>
         <Topo />
         <div className='secao-principal largura-maxima'>
@@ -115,13 +116,11 @@ export default function Principal() {
                     currency: 'BRL',
                   })
                   }
-
                 />
               })
             }
           </div>
         </div>
       </section>
-
   );
-}
+};
