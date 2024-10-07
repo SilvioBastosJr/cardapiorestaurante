@@ -1,7 +1,7 @@
 import Topo from '../Topo/topo';
 import Card from '../Card/card';
 
-import produtos from '../dadosCardapio/dados.js';
+import {exibirEntrada, filtrarPrato, buscarPrato} from '../servico';
 
 import './principal.css';
 
@@ -15,12 +15,7 @@ import sobremesa from '../assets/sobremesa.png';
 import { IoSearch } from "react-icons/io5";
 import { useState } from 'react';
 
-export default function Principal() {
-
-  const exibirEntrada = (entradas) => {
-    
-  return produtos.filter((produto) => produto.categoria === entradas);
-};
+const Principal = () => {
 
   const [categoriaCardapio, setCategoriaCardapio] = useState(exibirEntrada("Entradas"));
 
@@ -28,31 +23,25 @@ export default function Principal() {
 
   const [bgBTN, setBgBTN] = useState("bg-cinza");
 
-  const filtrarPrato = (categoria) => {
+  const handleFiltrarPrato = (categoria) => {
 
-    setCategoriaCardapio(produtos.filter((produto) => produto.categoria === categoria));
+    setCategoriaCardapio(filtrarPrato(categoria));
 
     setBgBTN(categoria);
 
     setTextoBusca("");
   };
 
-  const buscarJogo = (textoDigitado) => {
+  const handleBuscarPrato = (textoDigitado) => {
     
     setTextoBusca(textoDigitado); 
     
-    textoDigitado.length >= 3 && setCategoriaCardapio(
-        produtos.filter((produto) => {
-          return (
-            produto.nome.toLowerCase().includes(textoDigitado.toLowerCase()) ||
-            produto.descricao.toLowerCase().includes(textoDigitado.toLowerCase())
-          )
-        }));
+    textoDigitado.length >= 3 && setCategoriaCardapio(buscarPrato())
 
-        if(textoDigitado.length == 0) {
-          console.log("Campo Vazio");
-          setCategoriaCardapio(exibirEntrada("Entrada"));
-        }
+    if(textoDigitado.length === 0) {
+      console.log("Campo Vazio");
+      setCategoriaCardapio(exibirEntrada("Entradas"));
+    }
 
     } 
   
@@ -61,27 +50,27 @@ export default function Principal() {
         <Topo />
         <div className='secao-principal largura-maxima'>
           <div className='botao-escolha'>
-            <button className={bgBTN === "Entradas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Entradas")}>
+            <button className={bgBTN === "Entradas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => handleFiltrarPrato("Entradas")}>
               <img className='img-icone' src={entrada} alt="Entrada" />
               <p>Entradas</p>
             </button>
-            <button className={bgBTN === "Massas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Massas")}>
+            <button className={bgBTN === "Massas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => handleFiltrarPrato("Massas")}>
               <img className='img-icone' src={massa} alt="Massas" />
               <p>Massas</p>
             </button>
-            <button className={bgBTN === "Carnes" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Carnes")}>
+            <button className={bgBTN === "Carnes" ? 'bg-dourado' : 'bg-cinza'} onClick={() => handleFiltrarPrato("Carnes")}>
               <img className='img-icone' src={carne} alt="Carnes" />
               <p>Carnes</p>
             </button>
-            <button className={bgBTN === "Bebidas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Bebidas")}>
+            <button className={bgBTN === "Bebidas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => handleFiltrarPrato("Bebidas")}>
               <img className='img-icone' src={bebidas} alt="Bebidas" />
               <p>Bebidas</p>
             </button>
-            <button className={bgBTN === "Saladas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Saladas")}>
+            <button className={bgBTN === "Saladas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => handleFiltrarPrato("Saladas")}>
               <img className='img-icone' src={salada} alt="Saladas" />
               <p>Saladas</p>
             </button>
-            <button className={bgBTN === "Sobremesas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => filtrarPrato("Sobremesas")}>
+            <button className={bgBTN === "Sobremesas" ? 'bg-dourado' : 'bg-cinza'} onClick={() => handleFiltrarPrato("Sobremesas")}>
               <img className='img-icone' src={sobremesa} alt="Sobremesas" />
               <p>Sobremesas</p>
             </button>
@@ -93,7 +82,7 @@ export default function Principal() {
             <input
               type='text'
               value={textoBusca}
-              onChange={(event) => buscarJogo(event.target.value)}
+              onChange={(event) => handleBuscarPrato(event.target.value)}
               placeholder='Pesquise aqui um dos pratos do nosso cardápio'
             />
           </div>
@@ -124,3 +113,5 @@ export default function Principal() {
       </section>
   );
 };
+
+export default Principal;
